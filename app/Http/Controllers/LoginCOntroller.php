@@ -20,6 +20,7 @@ class LoginCOntroller extends Controller
     }
     public function logout(Request $request)
     {
-        // return view('login2');
+        \Auth::logout();
+        return redirect('/');
     }
 }

@@ -35,7 +35,7 @@
                             <li><a href="#">Contacts</a></li>
                             <li><a href="#">Mailbox</a></li>
                             <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
+                            <li><a href="{!! route('logout') !!}">Logout</a></li>
                         </ul>
                     </div>
                 </li>
@@ -46,7 +46,6 @@
                     </ul>
                 </li>
             </ul>
-
         </div>
     </nav>
 
@@ -105,7 +104,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="login.html">
+                    <a href="{!! route('logout') !!}">
                         <i class="fa fa-sign-out"></i> Log out
                     </a>
                 </li>
@@ -150,19 +149,20 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                     <form role="form" class="form-inline">
+                   <form role="form" class="form-inline">
                         <div class="form-group">
                             <label for="networks" class="sr-only">Span</label>
-                            <select id="span" class="form-control" v-model="network">
-                                <option value="30Days" selected>30Days</option>
-                                <option value="60Days">60Days</option>
-                                <option value="90Days">90Days</option>
+                            <select id="dropdown" class="form-control">
+                                <option value="30days" selected>30days</option>
+                                <option value="90days">90days</option>
+                                <option value="180days">180days</option>
                             </select>
                         </div>
                         </form>
                   </div>
              </div><!--close Navbar row-->
          </div><!--close class Wrapper-->
+
                                      <div class="tabs-container">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a data-toggle="tab" href="#tab-1"> Revenue</a></li>
@@ -266,7 +266,7 @@
             $.ajax({
             type:"GET",
             url:"/summary/{token}/{days}",
-            data:{token:"{!! $accessToken !!}",days:"30Days"},
+            data:{token:"{!! $accessToken !!}",days:"30days"},
               success: function(data) {
                 var totalRevenue = 0;
                 var totalCustomers = 0;
@@ -386,15 +386,17 @@
             }
          }); //close ajax function
 
-
-
-                 $('#span').change(function(){
-                    // alert();
-
+                 $('#dropdown').change(function(){
+                    $('#totalrevenue').text("");
+                    $('#totalcustomers').text("");
+                    $('#totaltransactions').text("");
+                      var span = $('#dropdown').find(":selected").text();
+                  console.log(typeof(span));
+                  console.log(span);
           $.ajax({
             type:"GET",
             url:"/summary/{token}/{days}",
-            data:{token:"{!! $accessToken !!}",days:$('#span').find(":selected").text()},
+            data:{token:"{!! $accessToken !!}",days:span},
               success: function(data) {
                 var totalRevenue = 0;
                 var totalCustomers = 0;

@@ -35,7 +35,7 @@ class HomeController extends Controller
             $res2 =   $clients2->request('GET', 'https://api.demo.reja.ai/auth', [
                 'json' => ["email" =>   $email, "dashboard_id" =>   $dashboard_id, "password" =>   $password]
             ]);
-            $jsondata =   $res2->getBody();
+            $jsondata =   $res2->getBody()->getContents();
             $accessTokenData =  json_decode($jsondata, true); // returned by the API endpoint
             $accessToken = $accessTokenData['access_token'];
             return view('dashboard', compact('accessToken'));

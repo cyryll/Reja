@@ -11,10 +11,10 @@ class SummaryController extends Controller
     public function getSummaryData(Request $request)
     {
         $token =   $_GET['token'];
-
+        $span =   $_GET['days'];
         $curl =  $ch = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.demo.reja.ai/analytics/summary?client_id=3&span=30days",
+            CURLOPT_URL => "https://api.demo.reja.ai/analytics/summary?client_id=3&span=" . $span,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
